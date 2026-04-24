@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en" class="bg-stone-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Vital for Google Maps API keys with "None" restrictions to work in some sandboxes -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>EchoPaths</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"DM Serif Display"', 'serif'],
+                    },
+                    colors: {
+                        editorial: {
+                            100: '#F9F7F4', // Off-white paper
+                            900: '#1A1A1A', // Soft black
+                        }
+                    },
+                    animation: {
+                        'subtle-pulse': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hide scrollbar for clean aesthetic but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        /* Ensure pac-container (the Google Maps autocomplete dropdown) matches our theme */
+        .pac-container {
+            border-radius: 12px;
+            margin-top: 8px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .pac-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        .pac-item:hover {
+            background-color: #f5f5f4; /* stone-100 */
+        }
+        .pac-item-query {
+            font-size: 14px;
+            color: #1c1917; /* stone-900 */
+        }
+        /* Hide the 'powered by google' logo if allowed by T&C for your specific use case, 
+           otherwise keep it. Usually fine to keep it for demos. */
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.0/",
+    "react": "https://esm.sh/react@^19.2.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.28.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.552.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.0/",
+    "path": "https://esm.sh/path@^0.12.7",
+    "vite": "https://esm.sh/vite@^7.2.7",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
