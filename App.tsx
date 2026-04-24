@@ -52,30 +52,26 @@ function App() {
   useEffect(() => {
     const SCRIPT_ID = 'google-maps-script';
     
-    const getApiKey = () => {
-        const key = process.env.API_KEY;
-        if (!key) return null;
-        // Clean up quotes just in case JSON.stringify added them in define, or env var has them
+    const getMapsKey = () => {
+        // @ts-ignore
+        const key = process.env.GOOGLE_MAPS_API_KEY;
+        if (!key || key === 'undefined') return null;
         return key.replace(/["']/g, "").trim();
     };
 
-    const apiKey = getApiKey();
-
-    console.log(process.env.API_KEY)
+    const apiKey = getMapsKey();
 
     if (!apiKey) {
-        setScriptError("API Key is missing from environment variables.");
-        console.error("Critical: process.env.API_KEY is missing or empty.");
+        setScriptError("Google Maps API Key is missing. Please set it in your environment variables.");
+        console.error("Critical: GOOGLE_MAPS_API_KEY is missing or empty.");
         return;
     }
     
     if (document.getElementById(SCRIPT_ID) || window.google?.maps) return;
 
-
-
     const script = document.createElement('script');
     script.id = SCRIPT_ID;
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBdf3qEHerho4yhseDl3vf-06ZHUcub-rI&loading=async&v=weekly&libraries=places`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&v=weekly&libraries=places`;
     script.async = true;
     script.defer = true;
     script.onerror = () => setScriptError("Google Maps failed to load.");

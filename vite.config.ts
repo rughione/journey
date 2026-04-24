@@ -26,11 +26,22 @@ export default defineConfig(({ mode }) => {
                    cleanKey(env.API_KEY) || 
                    cleanKey(env.GEMINI_API_KEY);
 
+    const mapsKey = cleanKey(process.env.GOOGLE_MAPS_API_KEY) ||
+                    cleanKey(process.env.VITE_GOOGLE_MAPS_API_KEY) ||
+                    cleanKey(env.GOOGLE_MAPS_API_KEY) ||
+                    cleanKey(env.VITE_GOOGLE_MAPS_API_KEY);
+
     if (!apiKey) {
        console.warn("⚠️  WARNING: API_KEY is undefined. The app may not function correctly.");
     } else {
        console.log("✅ API_KEY loaded for build.");
     }
+
+    if (!mapsKey) {
+        console.warn("⚠️  WARNING: GOOGLE_MAPS_API_KEY is undefined. Maps will not work.");
+     } else {
+        console.log("✅ GOOGLE_MAPS_API_KEY loaded for build.");
+     }
 
     return {
       server: {
@@ -42,6 +53,7 @@ export default defineConfig(({ mode }) => {
         // Correctly inject the string value. 
         // If apiKey is undefined, it sets it to undefined (or empty string if preferred, but undefined is safer to detect)
         'process.env.API_KEY': apiKey ? JSON.stringify(apiKey) : 'undefined',
+        'process.env.GOOGLE_MAPS_API_KEY': mapsKey ? JSON.stringify(mapsKey) : 'undefined',
       },
       resolve: {
         alias: {

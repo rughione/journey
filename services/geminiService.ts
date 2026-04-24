@@ -292,7 +292,7 @@ export const generateSegmentAudio = async (text: string, audioContext: AudioCont
   try {
     const audioResult = await withRetry(async () => {
         const response = await ai.models.generateContent({
-            model: 'gemini-1.5-flash', // Using 1.5-flash for stable TTS support
+            model: 'gemini-2.0-flash-001', // Changed to a stable model supporting native audio/TTS
             contents: [{ parts: [{ text: text }] }],
             config: {
               responseModalities: [Modality.AUDIO],
